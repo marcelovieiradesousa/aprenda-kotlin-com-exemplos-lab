@@ -10,8 +10,14 @@ data class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<Cont
 
     val inscritos = mutableListOf<Usuario>()
     
-    fun matricular(usuario: Usuario) {
+    open fun matricular(usuario: Usuario) {
         TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+        if (inscritos.contains(usuario)){
+            return "usuario ja cadastrado"
+        }
+        else{
+            inscritos.add(usuario)
+        }
     }
 }
 
