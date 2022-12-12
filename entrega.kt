@@ -12,7 +12,7 @@ open class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<Cont
 
     val inscritos = mutableListOf<Usuario>()
     
-    open fun matricular(usuario: Usuario): Unit {
+    fun matricular(usuario: Usuario): Unit {
         if (inscritos.contains(usuario)){
             println("numero de inscritos: ${inscritos.size}") //qtd de matriculados
             inscritos.forEach{println(it.nome)} //nome dos matriculados
@@ -22,6 +22,22 @@ open class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<Cont
             inscritos.add(usuario)
         }
     return }
+    
+    fun descricao(){
+        var duracaoFormacao: Int = 0
+        
+        for (curso in conteudos){ 
+            println(curso.nome)//nomes dos conteudos
+            duracaoFormacao += curso.duracaoHora
+        }
+        println("horas de duração: $duracaoFormacao")
+
+//         for (i < conteudos.size){
+//             
+//         }
+        
+        //println("O curso $nome, tem por $duracaoFormacao horas de duração e voce encontrará aulas como $conteudos.forEach{println(it.nome)} ") 
+    }
 }
 
 fun main() {
@@ -48,5 +64,8 @@ fun main() {
     f3.matricular(Ana)
     f3.matricular(Marcelo)
     
+    //.descricao()
+    //.descricao()
+    f3.descricao()
     //TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
 }
