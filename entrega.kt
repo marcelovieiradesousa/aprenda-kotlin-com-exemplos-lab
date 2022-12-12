@@ -2,7 +2,11 @@
 
 enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-enum class Aula {VIDEO, DES_PROJETO, DES_CODIGO}
+enum class Aula(val material: String) {
+    VIDEO("video aula"), 
+    DES_PROJETO("desafio de projeto"), 
+    DES_CODIGO("desafio de código");
+}
 
 class Usuario(val nome: String, var senha: Int)
 
@@ -23,25 +27,34 @@ open class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<Cont
         }
     return }
     
-    fun descricao(){
+    fun descricaoCurso(){
         var duracaoFormacao: Int = 0
-        
+        var nomeListaCursos: MutableList<String> = mutableListOf()
+        var index: Int = 0
         for (curso in conteudos){ 
-            println(curso.nome)//nomes dos conteudos
             duracaoFormacao += curso.duracaoHora
+            nomeListaCursos.add(conteudos.elementAt(index).nome)// jeito mais verboso de se refereir a variavel curso usando index
+            index++
         }
-        println("horas de duração: $duracaoFormacao")
-
-//         for (i < conteudos.size){
-//             
-//         }
-        
-        //println("O curso $nome, tem por $duracaoFormacao horas de duração e voce encontrará aulas como $conteudos.forEach{println(it.nome)} ") 
+        val rowCursos = nomeListaCursos.toString()
+        val cursos: String = rowCursos.replace("[", "").replace("]", "") //falta eu conhecer como construir um regex decente, mas a gambiarra ajuda
+        println("O curso $nome, tem por $duracaoFormacao horas de duração e você encontrará aulas como $cursos. Para mais informações acesse: www.dio.me . Divirta-se!") 
+    }
+    fun gratis(){
+        if(pro) return println("Curso pago!") else return println("Curso GRATIIIS!!!")
+    }
+    fun tipoAula(){
+        var tipoListaAulas: MutableList<String> = mutableListOf()
+        for (curso in conteudos){ 
+            tipoListaAulas.add(curso.tipo.material)
+        }
+        val rowAulas = tipoListaAulas.toString()
+        val aulas: String = rowAulas.replace("[", "").replace("]", "")//falta eu conhecer como construir um regex decente, mas a gambiarra ajuda
+        return println("Os tipos de aula para $nome são em $aulas.")
     }
 }
 
 fun main() {
-    //TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
     //Usuarios
     val Marcelo = Usuario("Marcelo Vieira", 123456)
     val Ana = Usuario("Ana Maria", 654321)
@@ -56,16 +69,23 @@ fun main() {
     val c6 = ConteudoEducacional("Criando a Mecânica de Ataque", 8, Aula.DES_CODIGO)
     
     //Formação
-    val f1 = Formacao("Formacao UX Designer", Nivel.INTERMEDIARIO, listOf(c5), true)
+    val f1 = Formacao("Formacão UX Designer", Nivel.INTERMEDIARIO, listOf(c5), true)
     val f2 = Formacao("Formação Unity 3D Game Developer", Nivel.AVANCADO, listOf(c2, c4, c6), true)
     val f3 = Formacao("Kotlin Experience", Nivel.BASICO, listOf(c1, c3), false)
     
-    f3.matricular(Marcelo)
-    f3.matricular(Ana)
-    f3.matricular(Marcelo)
+    //TESTES
+    //f3.matricular(Marcelo)
+    //f3.matricular(Ana)
+    //f3.matricular(Marcelo)
     
-    //.descricao()
-    //.descricao()
-    f3.descricao()
-    //TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    //f1.descricaoCurso()
+    //f2.descricaoCurso()
+    //f3.descricaoCurso()
+    
+    //f2.gratis()
+    //f3.gratis()
+    
+    //f3.tipoAula()
+    //f2.tipoAula()
+    //f1.tipoAula()
 }
