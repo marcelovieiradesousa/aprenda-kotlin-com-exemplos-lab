@@ -12,15 +12,16 @@ open class Formacao(val nome: String, val nivel: Nivel, var conteudos: List<Cont
 
     val inscritos = mutableListOf<Usuario>()
     
-    open fun matricular(usuario: Usuario): String {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    open fun matricular(usuario: Usuario): Unit {
         if (inscritos.contains(usuario)){
-            return "usuario ja cadastrado"
+            println("numero de inscritos: ${inscritos.size}") //qtd de matriculados
+            inscritos.forEach{println(it.nome)} //nome dos matriculados
+            return println("usuario ja cadastrado")
         }
         else{
             inscritos.add(usuario)
         }
-    }
+    return }
 }
 
 fun main() {
@@ -42,6 +43,10 @@ fun main() {
     val f1 = Formacao("Formacao UX Designer", Nivel.INTERMEDIARIO, listOf(c5), true)
     val f2 = Formacao("Formação Unity 3D Game Developer", Nivel.AVANCADO, listOf(c2, c4, c6), true)
     val f3 = Formacao("Kotlin Experience", Nivel.BASICO, listOf(c1, c3), false)
+    
+    f3.matricular(Marcelo)
+    f3.matricular(Ana)
+    f3.matricular(Marcelo)
     
     //TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
 }
